@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod'
 
 export const parameterBackendSchema = z.object({
   value: z.string(),

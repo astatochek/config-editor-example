@@ -5,13 +5,13 @@ const baseConfigBackendSchema = z.object({
   parameters: parameterBackendSchema.array(),
 });
 
-type ConfigDto = z.infer<typeof baseConfigBackendSchema> & {
+export type ConfigDto = z.infer<typeof baseConfigBackendSchema> & {
   children: ConfigDto[];
 };
 
-export const configBackendShema: z.ZodType<ConfigDto> =
+export const configBackendSchema: z.ZodType<ConfigDto> =
   baseConfigBackendSchema.extend({
-    children: z.lazy(() => configBackendShema.array()),
+    children: z.lazy(() => configBackendSchema.array()),
   });
 
 export class ConfigNode {
@@ -24,6 +24,7 @@ export class ConfigNode {
 
   static fromDto(dto: ConfigDto): ConfigNode {
     return new ConfigNode(
+        //eslint-disable-next-line @typescript-eslint/unbound-method
       dto.parameters.map(Parameter.fromDto),
       dto.children.map(ConfigNode.fromDto),
     );
