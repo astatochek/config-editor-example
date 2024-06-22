@@ -3,12 +3,11 @@ import { ConfigDto } from '~/model/config.model'
 import { faker } from '@faker-js/faker'
 
 function generateStubParameter(): ParameterDto {
+    const stubStringLiteralElement = faker.helpers.arrayElement(['string', 'number', 'boolean'] as const)
+
     return {
         value: faker.word.noun(),
-        metaType: [faker.word.noun(), faker.number.int(), faker.datatype.boolean()][faker.number.int({
-            min: 0,
-            max: 2,
-        })],
+        metaType: stubStringLiteralElement,
     }
 }
 
